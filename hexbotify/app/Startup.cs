@@ -31,6 +31,7 @@ namespace Hexbotify
                 .AddTransient<IApiClient, ApiClient>()
                 .AddTransient<INoOpsApiClient, NoOpsApiClient>()
                 .AddTransient<IWebImageClient, WebImageClient>()
+                .AddTransient<IHexbotTransformer, HexbotTransformer>()
 
                 .AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);

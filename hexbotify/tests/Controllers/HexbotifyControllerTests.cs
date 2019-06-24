@@ -42,23 +42,23 @@ namespace Hexbotify.Tests.Controllers
         public async void Get_Should_Call_IHexbotifier_Go()
         {
             var service = Substitute.For<IHexbotifier>();
-            service.Go(Arg.Any<int?>(), Arg.Any<int?>(), Arg.Any<int?>(), Arg.Any<string>(), Arg.Any<string>()).Returns(new HexbotifierResponse { Image = new byte[] { 1 }, ContentType = "image/jpeg" });
+            service.Go(Arg.Any<int?>(), Arg.Any<int?>(), Arg.Any<int?>(), Arg.Any<string>(), Arg.Any<string>(), Arg.Any<bool?>()).Returns(new HexbotifiedImage { Image = new byte[] { 1 }, ContentType = "image/jpeg" });
 
-            await _controller.Get(service, 123, 456, 789, "seed", "canvas");
+            await _controller.Get(service, 123, 456, 789, "seed", "canvas", true);
 
-            await service.Received(1).Go(123, 456, 789, "seed", "canvas");
+            await service.Received(1).Go(123, 456, 789, "seed", "canvas", true);
         }
 
         [Fact]
         public async void Get_Should_Return_Correctly()
         {
             var service = Substitute.For<IHexbotifier>();
-            var response = new HexbotifierResponse
+            var response = new HexbotifiedImage
             {
                 ContentType = "image/jpeg",
                 Image = new byte[] { 123, 234, 0 }
             };
-            service.Go(Arg.Any<int?>(), Arg.Any<int?>(), Arg.Any<int?>(), Arg.Any<string>(), Arg.Any<string>()).Returns(response);
+            service.Go(Arg.Any<int?>(), Arg.Any<int?>(), Arg.Any<int?>(), Arg.Any<string>(), Arg.Any<string>(), Arg.Any<bool?>()).Returns(response);
 
             var actual = await _controller.Get(service);
 
