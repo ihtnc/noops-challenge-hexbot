@@ -129,6 +129,8 @@ namespace Hexbotify.Tests.Services
 
             await _apiClient.Received(1).SendAsync(request, Arg.Any<Func<HttpResponseMessage, Task<HexbotResponse>>>());
             responseMapper.Should().NotBeNull();
+
+            request.Dispose();
         }
 
         [Fact]
@@ -142,6 +144,8 @@ namespace Hexbotify.Tests.Services
             Func<Task> action = async () => await responseMapper(response);
 
             action.Should().Throw<HttpRequestException>();
+
+            response.Dispose();
         }
 
         [Fact]

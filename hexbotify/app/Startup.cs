@@ -30,6 +30,7 @@ namespace Hexbotify
                 .AddTransient<IApiRequestProvider, ApiRequestProvider>()
                 .AddTransient<IApiClient, ApiClient>()
                 .AddTransient<INoOpsApiClient, NoOpsApiClient>()
+                .AddTransient<IWebImageClient, WebImageClient>()
 
                 .AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);

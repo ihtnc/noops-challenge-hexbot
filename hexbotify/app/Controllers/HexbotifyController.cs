@@ -8,17 +8,11 @@ namespace Hexbotify.Controllers
     [ApiController]
     public class HexbotifyController : ControllerBase
     {
-        private readonly IHexbotifier _hexbotifier;
-
-        public HexbotifyController(IHexbotifier hexbotifier)
-        {
-            _hexbotifier = hexbotifier;
-        }
-
         [HttpGet]
-        public async Task<ActionResult<dynamic>> Get(int? count, int? width, int? height, string seed, string imageUrl)
+        public async Task<ActionResult> Get([FromServices] IHexbotifier hexbotifier, int? count = null, int? width = null, int? height = null, string seed = null, string canvas = null)
         {
-            return await _hexbotifier.Go(count, width, height, seed, imageUrl);
+            var response = await hexbotifier.Go(count, width, height, seed, canvas);
+            return new FileContentResult(response.Image, response.ContentType);
         }
     }
 }
